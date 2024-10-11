@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: Dockerfile-nginx
+        volumes:
+            - ./:/var/www/donut/
+        ports:
+            - 8000:80
+        networks:
+            - symfony
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile-php
+        environment:
+            APP_ENV: dev
+        volumes:
+            - ./:/var/www/donut/
+        networks:
+            - symfony
+        ports:
+            - 9000:8000
+        depends_on:
+            - database
+
+    database:
+        image: 'mysql:latest'
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: donut_db
+        ports:
+            - '3306:3306'
+        volumes:
+            - ./mysql:/var/lib/mysql
+        networks:
+            - symfony
+
+networks:
+    symfony:
