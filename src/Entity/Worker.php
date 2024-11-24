@@ -34,10 +34,10 @@ class Worker
     private int $earnedDonuts;
 
     #[ORM\Column]
-    private ?bool $donutBanned = null;
+    private bool $donutBanned;
 
     #[ORM\Column]
-    private ?int $boardRecognitionPoints = null;
+    private int $boardRecognitionPoints;
 
     public function getId(): int
     {
@@ -109,11 +109,9 @@ class Worker
         return $this->donutBanned;
     }
 
-    public function setDonutBanned(bool $donutBanned): self
+    public function setDonutBanned(bool $donutBanned): void
     {
         $this->donutBanned = $donutBanned;
-
-        return $this;
     }
 
     public function getBoardRecognitionPoints(): ?int
@@ -121,10 +119,8 @@ class Worker
         return $this->boardRecognitionPoints;
     }
 
-    public function setBoardRecognitionPoints(int $boardRecognitionPoints): self
+    public function setBoardRecognitionPoints(int $boardRecognitionPoints): void
     {
         $this->boardRecognitionPoints = $boardRecognitionPoints;
-
-        return $this;
     }
 }
